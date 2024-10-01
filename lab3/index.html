@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>fonts</title>
+</head>
+<style>
+body {
+    font-family: 'Jokerman', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #333;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20px;
+}
+
+p {
+    color: #6c0505;
+    font-size: 1rem;
+    margin: 20px;
+    line-height: 1.8;
+}
+
+.p1 {
+    font-weight: bold;
+}
+</style>
+<body>
+    <h1>How a specific font can be delivered to a client making a request to the server</h1>
+    <p>I have given jokerman as the font for the whole body, and Agency FB as the font for the h1 tag, as the font declaration for h1 tag is more specific Agency FB is used for the information in h1 tag. I have given #6c0505 as the color for the p tag so the information in this paragarph is in that color. For the letters to be <span class="p1">bold</span> I have used span tags and declared bold word as p1 and in css file I have given font weight as bold for p1 tag</p>
+    
+</body>
+<footer>
+    <p>Last updated: 
+        <span id="lastModified"></span>
+    </p>
+</footer>
+<script type="text/javascript">
+     var x = document.lastModified;
+     document.getElementById('lastModified').textContent = x;
+</script>
+</html>
