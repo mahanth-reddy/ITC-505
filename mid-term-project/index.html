@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Adventure Game</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.container {
+    margin: 20px;
+    padding: 20px;
+}
+
+header {
+    background-color: #e16161;
+    color: white;
+    padding: 10px;
+    font-size: 24px;
+    border-radius: 8px;
+}
+
+#story {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.choices button {
+    background-color: #4c4eaf;
+    color: rgb(26, 24, 24);
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.choices button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Addendum Section Box Styling */
+#addendum {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    border: 2px solid #4CAF50; /* Green border */
+    border-radius: 8px; /* Rounded corners */
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for the box */
+    max-width: 800px; /* Limit the width of the box */
+    margin-left: auto;
+    margin-right: auto; /* Center the box */
+}
+
+#addendum h2 {
+    font-size: 28px;
+    text-align: center;
+    color: #4CAF50; /* Green color for the title */
+    margin-bottom: 20px;
+}
+
+#addendum h3 {
+    font-size: 24px;
+    color: #fff;
+    margin-top: 30px;
+}
+
+#addendum p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#addendum p:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Addendum Section Responsiveness */
+@media (max-width: 768px) {
+    #addendum {
+        padding: 15px;
+    }
+
+    #addendum h2 {
+        font-size: 24px;
+    }
+
+    #addendum h3 {
+        font-size: 20px;
+    }
+
+    #addendum p {
+        font-size: 14px;
+    }
+}
+</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Space Adventure</h1>
+        </header>
+
+        <main id="story">
+            <p id="story-text">Welcome to your Space Adventure! Prepare to land on a distant planet.</p>
+        </main>
+
+        <div id="choices" class="choices">
+            <!-- Choices will appear here dynamically -->
+        </div>
+
+        <footer>
+            <p>Last updated: <span id="lastModified"></span></p>
+        </footer>
+
+    </div>
+    <!-- Addendum Section -->
+<!-- Addendum Section -->
+<!-- Addendum Section -->
+<div id="addendum">
+    <h2>Game Development Addendum</h2>
+    <p>
+        This Space Adventure game is a "Choose Your Own Adventure" style interactive story where players make decisions that determine the outcome of their journey. The game consists of multiple stages, each with a series of choices, leading to different outcomes or endings. The player starts by landing on an unknown planet and must choose between exploring a cave or ancient ruins. The decisions made throughout the game will either lead to success or failure.
+    </p>
+
+    <h3>Process and Creative Choices</h3>
+    <p>
+        During the development of the game, I focused on creating a simple but engaging narrative where each choice could branch into multiple paths, giving the player a sense of control over the story. I chose a science-fiction theme for the game, setting it on a distant planet with mysterious creatures, ancient ruins, and unexpected traps. 
+    </p>
+    
+    <h3>Challenges Faced and Solutions</h3>
+    <p>
+        One of the main challenges I faced during development was organizing the logic for the branching story paths. It was important to structure the code in a way that would allow for flexibility in the decision tree and ensure that each consequence was properly linked to the next stage of the game. To manage this, I used a JavaScript object to store the different stages of the game along with the available choices and their consequences.
+    </p>
+
+    <h3>Future Enhancements</h3>
+    <p>
+        In the future, I plan to add more complex features to the game, such as adding images or animations that change based on the player's decisions. I could also introduce time-based challenges or puzzles that require the player to think critically. Furthermore, I would like to incorporate a scoring system to reward players for making successful decisions, adding a new layer of interaction to the game.
+    </p>
+</div>
+
+</div>
+
+
+
+    <script>// Define story stages
+const storyStages = {
+    start: {
+        text: "You’ve landed on an unknown planet. The air is thin, and the ground is rocky. Do you want to investigate a nearby cave or explore the ruins in the distance?",
+        choices: [
+            { text: "Investigate the Cave", consequence: "alienEncounter" },
+            { text: "Explore the Ruins", consequence: "ancientRuins" }
+        ]
+    },
+    alienEncounter: {
+        text: "You enter the cave and find a glowing alien creature. It seems curious about you. Do you try to communicate with it or defend yourself?",
+        choices: [
+            { text: "Communicate", consequence: "alienHelp" },
+            { text: "Defend Yourself", consequence: "hostileAlien" }
+        ]
+    },
+    ancientRuins: {
+        text: "You reach the ancient ruins and find strange symbols on the walls. You also discover hidden technology. Do you take it or leave it?",
+        choices: [
+            { text: "Take the Technology", consequence: "trapActivated" },
+            { text: "Leave it", consequence: "safeReturn" }
+        ]
+    },
+    alienHelp: {
+        text: "The alien communicates and offers to help you. It warns you of a hazard nearby. You can now explore the planet further or return to your ship.",
+        choices: [
+            { text: "Explore Further", consequence: "successfulMission" },
+            { text: "Return to Ship", consequence: "safeReturn" }
+        ]
+    },
+    hostileAlien: {
+        text: "The alien doesn't seem friendly! It attacks you, and you must escape! Unfortunately, you're injured and have to return to your ship.",
+        choices: [{ text: "Return to Ship", consequence: "hostileEscape" }]
+    },
+    trapActivated: {
+        text: "You took the technology, but it triggered a trap! You’re stuck on this planet forever. Game Over.",
+        choices: [{ text: "Restart", consequence: "start" }]
+    },
+    successfulMission: {
+        text: "The alien leads you to a safe spot, and you manage to communicate with Earth. Congratulations, you've completed your mission!",
+        choices: [{ text: "Restart", consequence: "start" }]
+    },
+    safeReturn: {
+        text: "You safely return to your ship, ready to leave the planet. You've completed your mission without too much danger.",
+        choices: [{ text: "Restart", consequence: "start" }]
+    },
+    hostileEscape: {
+        text: "You barely escaped the alien encounter. You're hurt, and you'll never be able to complete your mission.",
+        choices: [{ text: "Restart", consequence: "start" }]
+    }
+};
+
+// Initialize the game with the start state
+let currentStage = 'start';
+
+// Function to update the page content
+function updatePage(stage) {
+    // Update story text
+    document.getElementById("story-text").innerText = storyStages[stage].text;
+
+    // Clear previous choices
+    const choicesContainer = document.getElementById("choices");
+    choicesContainer.innerHTML = "";
+
+    // Create buttons for each choice
+    storyStages[stage].choices.forEach(choice => {
+        const button = document.createElement("button");
+        button.innerText = choice.text;
+        button.onclick = () => chooseOption(choice.consequence);
+        choicesContainer.appendChild(button);
+    });
+}
+
+// Handle a choice and update the game state
+function chooseOption(consequence) {
+    if (consequence === 'start') {
+        currentStage = 'start';
+    } else {
+        currentStage = consequence;
+    }
+    updatePage(currentStage);
+}
+// Start the game
+function startGame() {
+    currentStage = 'start';
+    updatePage(currentStage);
+}
+
+// Start game on page load
+window.onload = startGame;
+</script>
+    <script type="text/javascript">
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+    </script>
+</body>
+</html>
