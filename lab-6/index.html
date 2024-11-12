@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <style>
+     /* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+        'header header header'
+        'sidenav content ads'
+        'footer footer footer';
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    gap: 10px;
+    padding: 10px;
+}
+
+.header, .sidenav, .content, .footer {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    grid-area: header;
+    background-color: #4682B4;
+    color: #fff;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.sidenav {
+    grid-area: sidenav;
+    background-color: #333;
+    color: white;
+    padding: 20px 15px;
+}
+
+.sidenav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidenav li {
+    margin: 20px 0;
+}
+
+.sidenav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    display: block;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidenav a:hover, .sidenav a.active {
+    background-color: #575757;
+    font-weight: bold;
+}
+
+.content {
+    grid-area: content;
+    background-color: #ADFF2F;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+/* Game Buttons */
+.game {
+    margin: 20px;
+}
+
+.choice {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    border: none;
+    background-color: #008CBA;
+    color: white;
+    border-radius: 5px;
+}
+
+.choice:hover {
+    background-color: #45a049;
+}
+
+#result {
+    font-size: 20px;
+    margin: 20px;
+}
+
+#score p {
+    font-size: 18px;
+}
+
+/* Advertisement Section */
+.ads {
+    grid-area: ads;
+    background-color: #eecc0f;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ad-image {
+    max-width: 100%;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.ad-image:hover {
+    transform: scale(1.05);
+}
+
+/* Footer styling */
+footer {
+    grid-area: footer;
+    background-color: #6546b4;
+    color: white;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        grid-template-areas:
+            'header'
+            'content'
+            'footer';
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    .sidenav, .ads {
+        display: none;
+    }
+}
+</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>Rock Paper Scissors Game</h1>
+            <p>Play against the computer!</p>
+        </header>
+
+        <nav class="sidenav">
+            <ul>
+                <li><a href="javascript:void(0);" id="home-link" onclick="navigateTo('home')">Home</a></li>
+                <li><a href="https://www.youtube.com/" target="_blank" id="about-link">About</a></li> 
+                <li><a href="https://www.youtube.com/" target="_blank" id="about-link">Contact</a></li> 
+        
+
+            </ul>
+        </nav>
+
+   
+        <main class="content">
+           
+            <div class="dashboard" id="home-dashboard" style="display: block;">
+                <h2>Rock Paper Scissors Game</h2>
+                <p>Choose your move!</p>
+                <div class="game">
+                    <button id="rock" class="choice">Rock</button>
+                    <button id="paper" class="choice">Paper</button>
+                    <button id="scissors" class="choice">Scissors</button>
+                </div>
+                <div id="result"></div>
+                <div id="score">
+                    <p>Player Score: <span id="playerScore">0</span></p>
+                    <p>Computer Score: <span id="computerScore">0</span></p>
+                </div>
+            </div>
+
+          
+            <div class="dashboard" id="about-dashboard" style="display: none;">
+                <h2>About This Game</h2>
+                <p>This is a simple Rock, Paper, Scissors game where you play against the computer. The game is interactive and easy to play!</p>
+            </div>
+
+           
+            <div class="dashboard" id="contact-dashboard" style="display: none;">
+                <h2>Contact</h2>
+                <p>If you have any questions, feel free to contact us at <a href="mailto:example@example.com">example@example.com</a>.</p>
+            </div>
+        </main>
+
+        
+        <aside class="ads">
+            <a href="https://www.amazon.com/Cycling-Compatible-pelaton-Outdoor-Black-red/dp/B092HFDKZV?ref_=Oct_d_orecs_d_679272011_0&pd_rd_w=HHspy&content-id=amzn1.sym.9d9a9f1d-bc39-41e5-8d60-61c0b0f78b81&pf_rd_p=9d9a9f1d-bc39-41e5-8d60-61c0b0f78b81&pf_rd_r=NECCEMKS0AX3J6KX0VJN&pd_rd_wg=xy4TX&pd_rd_r=2981004e-b21f-4f9b-ab1c-495d058d17ca&pd_rd_i=B092HFDKZV" target="_blank">
+                <img src="shoe.jpg" alt="Amazon Product" class="ad-image">
+            </a>
+            <p>Check out this popular product on Amazon!</p>
+        </aside>
+
+        
+        <footer class="footer">
+            <p>Last updated: <span id="lastModified"></span></p>
+            <p>Addendum: This is a simple "Rock Paper Scissors" game where you play against the computer. The scores are updated after each round.</p>
+        </footer>
+    </div>
+
+    <script>let playerScore = 0;
+let computerScore = 0;
+
+function determineWinner(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        return "It's a tie!";
+    }
+    if (
+        (playerChoice === "Rock" && computerChoice === "Scissors") ||
+        (playerChoice === "Paper" && computerChoice === "Rock") ||
+        (playerChoice === "Scissors" && computerChoice === "Paper")
+    ) {
+        playerScore++;
+        return "You win!";
+    } else {
+        computerScore++;
+        return "Computer wins!";
+    }
+}
+
+function getComputerChoice() {
+    const choices = ["Rock", "Paper", "Scissors"];
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
+}
+
+document.getElementById("rock").addEventListener("click", () => {
+    const playerChoice = "Rock";
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(playerChoice, computerChoice);
+    updateGame(result, playerChoice, computerChoice);
+});
+
+document.getElementById("paper").addEventListener("click", () => {
+    const playerChoice = "Paper";
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(playerChoice, computerChoice);
+    updateGame(result, playerChoice, computerChoice);
+});
+
+document.getElementById("scissors").addEventListener("click", () => {
+    const playerChoice = "Scissors";
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(playerChoice, computerChoice);
+    updateGame(result, playerChoice, computerChoice);
+});
+
+function updateGame(result, playerChoice, computerChoice) {
+    document.getElementById("result").textContent = `You chose ${playerChoice}, computer chose ${computerChoice}. ${result}`;
+    document.getElementById("playerScore").textContent = playerScore;
+    document.getElementById("computerScore").textContent = computerScore;
+}
+
+document.getElementById("lastModified").textContent = document.lastModified;
+</script>
+</body>
+</html>
