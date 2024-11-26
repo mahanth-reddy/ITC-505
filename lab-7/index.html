@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Libs Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 20px;
+            background-size: cover;
+        }
+      body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 20px;
+    background-color: rgb(243, 235, 93); 
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    background-color: rgb(2, 46, 41); 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8bed5d;
+}
+h1 {
+    color: #62d3db;
+}
+
+    </style>
+</head>
+<body>
+    <h1 align="center">MAD LIBS FORMS</h1>
+    <form id="madLibForm">
+        <label for="noun">NOUN:</label>
+        <input type="text" id="noun" name="noun" required>
+
+        <label for="adjective">ADJECTIVE:</label>
+        <input type="text" id="adjective" name="adjective" required>
+
+        <label for="verb">VERB:</label>
+        <input type="text" id="verb" name="verb" required>
+
+
+        <label for="adverb">ADVERB:</label>
+        <input type="text" id="adverb" name="adverb" required>
+
+        <button type="button" onclick="generateMadLib()">Generate Mad Lib</button>
+    </form>
+
+    <div id="madLibResult"></div>
+
+    <script> // Array of Mad Lib sentences
+const madLibSentences = [
+     "With a flourish of his wand, the ${adjective} sorcerer ${verb} a spell that turned a cracked ${noun} into a dazzling collection of glittering . The kingdom gazed in awe at this ${adverb} wondrous transformation."
+];
+
+
+function generateMadLib() {
+    
+    const noun = document.getElementById('noun').value;
+    const adjective = document.getElementById('adjective').value;
+    const verb = document.getElementById('verb').value;
+    const adverb = document.getElementById('adverb').value;
+
+    
+    if (noun && adjective && verb  && adverb) {
+        
+        const randomIndex = Math.floor(Math.random() * madLibSentences.length);
+        const madLibSentence = madLibSentences[randomIndex];
+
+        const madLib = madLibSentence
+            .replace("${noun}", noun)
+            .replace("${adjective}", adjective)
+            .replace("${verb}", verb)
+            .replace("${adverb}", adverb);
+
+        
+        document.getElementById('madLibResult').innerHTML = `<h2>Your Mad Lib:</h2><p>${madLib}</p>`;
+
+        
+        document.getElementById('madLibForm').reset();
+    } else {
+        alert("Please complete all fields before generating the Mad Lib.");
+    }
+}
+
+</script>
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+    <script type="text/javascript">
+         var x = document.lastModified;
+         document.getElementById('lastModified').textContent = x;
+    </script>
+</body>
+</html>
