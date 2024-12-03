@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+ <style>
+   /* General Reset */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #007bff, #0056b3);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    max-width: 400px;
+    margin: auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #0056b3;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Paragraph */
+p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Form Inputs */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+}
+
+button:active {
+    background-color: #003f7f;
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: none;
+}
+
+/* Hidden Section */
+.hidden {
+    display: none;
+}
+
+/* Thank You Styling */
+#thankYouContainer h2 {
+    color: #28a745;
+}
+
+#thankYouContainer p {
+    color: #444;
+    font-size: 18px;
+}
+
+ </style>
+  
+</head>
+<body>
+    <div class="container">
+        <h1>Secure Registration Form</h1>
+        <div id="errorContainer" class="error-message"></div>
+        <div id="formContainer">
+            <form id="secureForm">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <div id="thankYouContainer" class="hidden">
+            <h2>Thank You!</h2>
+            <p>Your form has been successfully submitted.</p>
+        </div>
+    </div>
+    <script> // Utility functions
+const sanitizeInput = (input) => {
+    const map = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    };
+    return input.replace(/[&<>"']/g, (char) => map[char]);
+};
+
+const showError = (message) => {
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.textContent = message;
+    errorContainer.style.display = "block";
+};
+
+const hideError = () => {
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.style.display = "none";
+};
+
+// Form validation function
+const validateForm = (fields) => {
+    const { firstName, lastName, email, password, confirmPassword } = fields;
+
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+        return "All fields are required.";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        return "Invalid email format.";
+    }
+
+    if (password !== confirmPassword) {
+        return "Passwords do not match.";
+    }
+
+    return null; // No errors
+};
+
+// Main event listener
+document.getElementById("secureForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    hideError();
+
+    // Collect and sanitize inputs
+    const fields = {
+        firstName: sanitizeInput(document.getElementById("firstName").value.trim()),
+        lastName: sanitizeInput(document.getElementById("lastName").value.trim()),
+        email: sanitizeInput(document.getElementById("email").value.trim()),
+        password: document.getElementById("password").value,
+        confirmPassword: document.getElementById("confirmPassword").value
+    };
+
+    // Validate form inputs
+    const errorMessage = validateForm(fields);
+    if (errorMessage) {
+        showError(errorMessage);
+        return;
+    }
+
+    // Hide form and display thank-you message
+    document.getElementById("formContainer").classList.add("hidden");
+    document.getElementById("thankYouContainer").classList.remove("hidden");
+});
+</script>
+</body>
+</html>
